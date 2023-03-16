@@ -2,8 +2,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   //Set variables for form
   //Set variables for list
-    const toDoForm = document.getElementById("toDoForm");
-    const toDoList = document.getElementById("toDoList");
+    const toDoForm = document.getElementById("toDoFormCSS");
+    const toDoList = document.getElementById("toDoListCSS");
   
 
 //
@@ -16,14 +16,16 @@ const savedToDos = JSON.parse(localStorage.getItem("toDos")) || [];
 for (let i = 0; i < savedToDos.length; i++) {
   let newToDo = document.createElement("li");
   newToDo.innerHTML = savedToDos[i].taskBox;
-  let removeButton = document.createElement("button"); ////
-  removeButton.innerText = "X";//////////
+  let removeButton = document.createElement("button"); /////////////////////
+  removeButton.innerText = "X";///////////////////////////////////
 //check if the  To Do item is completed and checked off
-  newToDo.isCompleted = savedToDos[i].isCompleted ? true : false;
+  newToDo.isCompleted = savedToDos[i].isCompleted ? true : false; ///ERRORS
   //if so, decor
   if (newToDo.isCompleted) {
     newToDo.style.textDecoration = "line-through";
     newToDo.style.color = "grey";
+    newToDo.classList="checkOff";
+    // toDoList.appendChild(newToDo);
   }
   //append the child (makes it appear in the DOM)
   toDoList.appendChild(newToDo);
@@ -43,9 +45,7 @@ for (let i = 0; i < savedToDos.length; i++) {
   //inner HTML is from the taskBox id form input box (valu)
       let newToDo = document.createElement("li");
       newToDo.innerHTML = document.getElementById("taskBox").value;
-
-
-  newToDo.isCompleted = false;
+      newToDo.isCompleted = false; ///GREYED ERROR?
 
 
   //take variable for the list (ul) and append a child (li) [newToDo] then add remove button
@@ -73,15 +73,26 @@ for (let i = 0; i < savedToDos.length; i++) {
       if (targetTagToLowerCase === "li") {
       //draw a line deciratuin on target > style > text decor
       //change to gray 
+      // localStorage
         e.target.style.textDecoration = "line-through";
         e.target.style.color = "grey";
+        e.target.classList.toggle("checkedOff");
+        e.target.isCompleted=true;
+        // localStorage.setItem("toDos", JSON.stringify(targetTagToLowerCase));
         //if the target is the button, remove the parent (li)
       } else if (targetTagToLowerCase === "button") {
+        // let todoKey = localStorage.key(e.targetTagToLowerCase);
+        // localStorage.removeItem(targetTagToLowerCase);
+
         e.target.parentNode.remove();
         ///
-        localStorage.parentNode.removeItem(); /////CANT REMOVE FROM LOCAL STORATE
+        // window.localStorage.target.remove();
+        // localStorage.parentNode.remove(); /////CANT REMOVE FROM LOCAL STORATE
+
         ///
       }
+
+
 
 
     });
@@ -95,6 +106,12 @@ for (let i = 0; i < savedToDos.length; i++) {
     localStorage.clear();
     location.reload();
     });
+
+    ///////////////////////////////////////////////
+
+
+
+
 
   }); //END DOM loaded
   
@@ -113,3 +130,58 @@ for (let i = 0; i < savedToDos.length; i++) {
 //   wiggle=true;
 // }
 
+
+
+
+
+
+
+
+// const todoForm = document.getElementById("newTodoForm");
+// const todoList = document.getElementById("todoList");
+
+// // retrieve from localStorage
+// const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+// for (let i = 0; i < savedTodos.length; i++) {
+//   let newTodo = document.createElement("li");
+//   newTodo.innerText = savedTodos[i].task;
+//   newTodo.isCompleted = savedTodos[i].isCompleted ? true : false;
+//   if (newTodo.isCompleted) {
+//     newTodo.style.textDecoration = "line-through";
+//   }
+//   todoList.appendChild(newTodo);
+// }
+
+// todoForm.addEventListener("submit", function(event) {
+//   event.preventDefault();
+//   let newTodo = document.createElement("li");
+//   let taskValue = document.getElementById("task").value;
+//   newTodo.innerText = taskValue;
+//   newTodo.isCompleted = false;
+//   todoForm.reset();
+//   todoList.appendChild(newTodo);
+
+//   // save to localStorage
+//   savedTodos.push({ task: newTodo.innerText, isCompleted: false });
+//   localStorage.setItem("todos", JSON.stringify(savedTodos));
+// });
+
+// todoList.addEventListener("click", function(event) {
+//   let clickedListItem = event.target;
+
+//   if (!clickedListItem.isCompleted) {
+//     clickedListItem.style.textDecoration = "line-through";
+//     clickedListItem.isCompleted = true;
+//   } else {
+//     clickedListItem.style.textDecoration = "none";
+//     clickedListItem.isCompleted = false;
+//   }
+
+//   // breaks for duplicates - another option is to have dynamic IDs
+//   for (let i = 0; i < savedTodos.length; i++) {
+//     if (savedTodos[i].task === clickedListItem.innerText) {
+//       savedTodos[i].isCompleted = !savedTodos[i].isCompleted;
+//       localStorage.setItem("todos", JSON.stringify(savedTodos));
+//     }
+//   }
+// });

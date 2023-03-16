@@ -125,3 +125,9 @@ ul {
     padding:5px;
     border-radius: 5px;
 }
+
+.checkedOff  {
+    text-decoration: line-through;
+    color: gray;
+
+}
